@@ -7,6 +7,7 @@ import { fatchMovies } from '@/services/api';
 import { icons } from '@/constants/icons';
 import SearchBar from '@/components/SearchBar';
 import { useIsFocused } from '@react-navigation/native';
+import { updateSearchCount } from '@/services/appwrite';
 
 
 const Search = () => {
@@ -27,11 +28,12 @@ const Search = () => {
       async () => {
         if(searchQuery.trim()) {
           await moviesReload();
+          if(movies?.length > 0 && movies?.[0]) await updateSearchCount(searchQuery,  movies[0]);
         } else {
           moviesClean();
         }
       },
-      500
+      800
     );
 
     return () => clearTimeout(timeoutId);
