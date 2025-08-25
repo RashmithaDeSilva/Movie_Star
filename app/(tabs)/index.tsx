@@ -47,14 +47,14 @@ export default function Index() {
           ) :
           moviesError ? 
           (
-            <Text className="text-lg text-white font-bold mt-5 mb-3">Error: { moviesError?.message }</Text>
+            <Text className="text-lg text-red-500 font-bold mt-5 mb-3">Error: { moviesError?.message }</Text>
           ) :
           (
             // Search bar
             <View>
               <SearchBar 
                 onPress={ () => router.push('/search') }
-                placeholder='Search for a movie'
+                placeholder='Search movies ...'
               />
 
               <>
