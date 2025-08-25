@@ -4,8 +4,8 @@ import { icons } from '@/constants/icons'
 
 
 interface Props {
-    placeholder: string;
-    onPress?: () => void;
+  placeholder: string;
+  onPress?: () => void;
 }
 
 const SearchBar = ({ placeholder, onPress }: Props) => {
@@ -29,4 +29,4 @@ const SearchBar = ({ placeholder, onPress }: Props) => {
   )
 }
 
-export default SearchBar
+export default SearchBar;
