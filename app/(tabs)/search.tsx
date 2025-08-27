@@ -28,7 +28,7 @@ const Search = () => {
       async () => {
         if(searchQuery.trim()) {
           await moviesReload();
-          if(movies?.length > 0 && movies?.[0]) await updateSearchCount(searchQuery,  movies[0]);
+
         } else {
           moviesClean();
         }
@@ -38,6 +38,10 @@ const Search = () => {
 
     return () => clearTimeout(timeoutId);
   }, [searchQuery]);
+
+  useEffect(() => {
+    if(movies?.length > 0 && movies?.[0]) updateSearchCount(searchQuery,  movies[0]);
+  }, [movies])
 
   useEffect(() => {
     if (isFocused) {

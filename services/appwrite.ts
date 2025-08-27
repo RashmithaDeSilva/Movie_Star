@@ -6,13 +6,9 @@ const PROJECT_ID = process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID!;
 const DATABASE_ID = process.env.EXPO_PUBLIC_APPWRITE_DATABASE_ID!;
 const COLLECTION_ID = process.env.EXPO_PUBLIC_APPWRITE_COLLECTION_ID!;
 
-const client = new Client()
-    .setEndpoint(ENDPOINT)
-    .setProject(PROJECT_ID);
-
+const client = new Client().setEndpoint(ENDPOINT).setProject(PROJECT_ID);
 const database = new Databases(client);
 
-// Track the searches made by a users
 export const updateSearchCount = async (query: string, movie: Movie | null) => {
     try {
         const results = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
@@ -51,5 +47,18 @@ export const updateSearchCount = async (query: string, movie: Movie | null) => {
     }
 }
 
+export const getTrendingMovies = async (): Promise<TrendingMovie[] | undefined> => {
+    try {
+        const results = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
+            Query.limit(5),
+            Query.orderDesc('count'),
+        ]);
+        return results.documents as unknown as TrendingMovie[];
+
+    } catch (error) {
+        console.log(error);
+        return undefined;
+    }
+}
 
 
