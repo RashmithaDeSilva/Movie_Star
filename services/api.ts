@@ -24,3 +24,24 @@ export const fatchMovies = async ({ query }: { query: string }) => {
     const data = await response.json();
     return data.results;
 }
+
+export const fatchMovieDetails = async (movieId: string): Promise<MovieDetails> => {
+    try {
+        const response = await fetch(`${ TMDB_CONFIG.BASE_URL }/movie/${ movieId }?api_key=${ TMDB_CONFIG.API_KEY }`, {
+            method: 'GET',
+            headers: TMDB_CONFIG.HEADERS,
+        });
+
+        if(!response.ok) {
+            // @ts-ignore
+            throw new Error('Failed to fatch movies details', response.statusText);
+        }
+
+        const data = await response.json();
+        return data;
+        
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
